@@ -9,6 +9,8 @@ public class ScoreSystem : MonoBehaviour
     [SerializeField] private float scoreMultiplier;
 
     public const string HighScoreKey = "HighScore";
+    public const string xpTotalScoreKey = "xpScore";
+    public const string LastScoreKey = "Last Score";
 
     private float score;
 
@@ -24,9 +26,16 @@ public class ScoreSystem : MonoBehaviour
     {
         int currentHighScore = PlayerPrefs.GetInt(HighScoreKey, 0);
 
+        PlayerPrefs.SetInt(LastScoreKey, Mathf.FloorToInt(score));
+
         if(score > currentHighScore)
         {
             PlayerPrefs.SetInt(HighScoreKey, Mathf.FloorToInt(score));
         }
+        int currentXPBoost = PlayerPrefs.GetInt(MainMenu.scoreXpKey, 1);
+        int currentTotalScore = PlayerPrefs.GetInt(xpTotalScoreKey, 0);
+    
+        PlayerPrefs.SetInt(xpTotalScoreKey, Mathf.FloorToInt((score*currentXPBoost)+currentTotalScore));
+        
     }
 }

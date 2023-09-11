@@ -10,15 +10,21 @@ public class MainMenu : MonoBehaviour
 {
     [SerializeField] private TMP_Text highScoreText;
     [SerializeField] private TMP_Text xpText;
+    [SerializeField] private TMP_Text xpTitle;
+    [SerializeField] private TMP_Text xpLevel;
+    [SerializeField] private TMP_Text LastRun;
+    [SerializeField] private Slider xpBar;
     [SerializeField] private Button playButton;
     [SerializeField] private AndroidNotificationHandler androidNotificationHandler;
     [SerializeField] private int maxXpBoost;
     [SerializeField] private int boostRechargeDuration;
     
+    
 
     private int xp;
 
-    private const string XpKey = "XP Boost";
+    public const string XpKey = "XP Boost";
+    public const string scoreXpKey = "score xp";
     private const string XpReadyKey = "XP Boost Ready";
 
     private void Start()
@@ -53,17 +59,25 @@ public class MainMenu : MonoBehaviour
             }
             else
             {
-                playButton.interactable = false;
                 Invoke(nameof(xpRecharged), (xpReady - DateTime.Now).Seconds);
             }
         }
 
         xpText.text = $"Play\n XP Boost x{xp}";
+
+        //xp Leveling
+
+        int totalScore = PlayerPrefs.GetInt(ScoreSystem.xpTotalScoreKey, 0);
+        int lastScore = PlayerPrefs.GetInt(ScoreSystem.LastScoreKey, 0);
+        xpLevel.text = $"{totalScore%1000}/1000";
+        xpTitle.text = $"XP Level:{Mathf.FloorToInt(totalScore/1000)}";
+        LastRun.text = $"Previous Score:{lastScore}";
+        float sliderValue = (totalScore%1000)*0.001f;
+        xpBar.value = sliderValue;
     }
 
     private void xpRecharged()
     {
-        playButton.interactable = true;
         xp = maxXpBoost;
         PlayerPrefs.SetInt(XpKey, xp);
         xpText.text = $"Play\n XP Boost x{xp}";
@@ -72,6 +86,7 @@ public class MainMenu : MonoBehaviour
     public void Play()
     {
         xp = PlayerPrefs.GetInt(XpKey, maxXpBoost);
+        PlayerPrefs.SetInt(scoreXpKey, xp);
 
         if(xp > 1)
         {
