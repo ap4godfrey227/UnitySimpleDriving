@@ -753,7 +753,7 @@ GameObject:
   - component: {fileID: 1359977239}
   - component: {fileID: 1359977238}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: PlayButtonText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -826,8 +826,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 25
+  m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1021,6 +1021,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1909828092}
   - component: {fileID: 1909828093}
+  - component: {fileID: 1909828094}
   m_Layer: 0
   m_Name: MainMenu
   m_TagString: Untagged
@@ -1057,3 +1058,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highScoreText: {fileID: 1615915658}
+  xpText: {fileID: 1359977238}
+  maxXpBoost: 5
+  boostRechargeDuration: 5
+--- !u!114 &1909828094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1909828091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4aa389d64552f214eaaeb732cb39607e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

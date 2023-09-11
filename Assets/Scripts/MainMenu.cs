@@ -41,11 +41,22 @@ public class MainMenu : MonoBehaviour
             }
         }
 
-        xpText.text = $"Play/n XP Boost x{xp}";
+        xpText.text = $"Play\n XP Boost x{xp}";
     }
 
     public void Play()
     {
+        xp = PlayerPrefs.GetInt(XpKey, maxXpBoost);
+
+        if(xp > 1)
+        {
+            xp--;
+            PlayerPrefs.SetInt(XpKey, xp);
+        }
+
+        DateTime resetTimeForXpBoost = DateTime.Now.AddMinutes(5);
+        PlayerPrefs.SetString(XpReadyKey, resetTimeForXpBoost.ToString());
         SceneManager.LoadScene(1);
     }
 }
+
